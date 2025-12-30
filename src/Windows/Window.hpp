@@ -1,5 +1,9 @@
 #pragma once
+#include "Events/Event.hpp"
+#include <functional>
 #include <string>
+
+class Event;
 
 struct WindowProps {
   std::string Title;
@@ -13,7 +17,7 @@ struct WindowProps {
 
 class Window {
 public:
-  // using EventCallbackFn = std::function<void(Event &)>;
+  using EventCallbackFn = std::function<void(Event &)>;
 
   virtual ~Window() {}
 
@@ -23,7 +27,7 @@ public:
   virtual unsigned int GetHeight() const = 0;
 
   // Window attributes
-  // virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
+  virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
   virtual void SetVSync(bool enabled) = 0;
   virtual bool IsVSync() const = 0;
 
