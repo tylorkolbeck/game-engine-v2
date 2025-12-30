@@ -1,0 +1,8 @@
+To make configuration run:
+cmake --preset debug
+
+To build run: 
+cmake --build --preset debug
+
+Build and run:
+cmake --build --preset debug && ./build/debug/tk-engine
