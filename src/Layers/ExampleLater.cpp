@@ -1,6 +1,4 @@
-#include "Engine/Engine.hpp"
-#include "Layers/Layer.hpp"
-#include <GLFW/glfw3.h>
+#include "Layer.hpp"
 #include <iostream>
 
 class ExampleLayer : public Layer {
@@ -13,12 +11,3 @@ public:
     std::cout << "Event: " << event.ToString() << "\n";
   }
 };
-
-int main() {
-  Layer *exampleLayer = new ExampleLayer();
-
-  Engine *engine = new Engine();
-  engine->PushLayer(exampleLayer);
-  engine->Run();
-  return 0;
-}
