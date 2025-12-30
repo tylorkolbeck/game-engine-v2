@@ -1,7 +1,7 @@
-To make configuration run:
+To make configuration:
 cmake --preset debug
 
-To build run: 
+To build: 
 cmake --build --preset debug
 
 Build and run:

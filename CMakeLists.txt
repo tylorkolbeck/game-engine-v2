@@ -25,9 +25,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Dependencies
 find_package(SDL3 CONFIG REQUIRED)
 
-add_executable(tk-engine
-  src/main.cpp
+
+file(GLOB_RECURSE TK_ENGINE_SOURCES CONFIGURE_DEPENDS
+  src/*.cpp
 )
+
+add_executable(tk-engine ${TK_ENGINE_SOURCES})
+
 
 target_link_libraries(tk-engine
   PRIVATE SDL3::SDL3
