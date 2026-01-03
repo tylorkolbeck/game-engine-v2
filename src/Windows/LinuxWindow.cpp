@@ -128,6 +128,8 @@ void LinuxWindow::Shutdown() { glfwDestroyWindow(m_Window); }
 
 void LinuxWindow::OnUpdate() {
   glfwPollEvents();
+  // glClearColor(1.0, 0.0, 0.0, 1.0);
+  // glClear(GL_COLOR_BUFFER_BIT);
   glfwSwapBuffers(m_Window);
 }
 
