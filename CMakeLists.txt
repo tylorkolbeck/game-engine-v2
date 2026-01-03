@@ -16,7 +16,8 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
-
+set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_X11 ON CACHE BOOL "" FORCE)
 
 add_subdirectory(external/glfw)
 
@@ -26,9 +27,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# Dependencies
- find_package(SDL3 CONFIG REQUIRED)
 
 file(GLOB_RECURSE TK_ENGINE_SOURCES CONFIGURE_DEPENDS
   src/*.cpp
@@ -50,17 +48,12 @@ target_include_directories(tk-engine
     src
 )
 
-target_link_libraries(tk-engine
-  PRIVATE SDL3::SDL3
-)
-
 add_subdirectory(vendor/imgui)
 target_link_libraries(tk-engine PRIVATE imgui)
 target_link_libraries(tk-engine PRIVATE glfw glad)
 
 target_compile_definitions(tk-engine
-  PRIVATE SDL_MAIN_HANDLED
-  GLFW_INCLUDE_NONE
+  PRIVATE GLFW_INCLUDE_NONE
 )
 
 

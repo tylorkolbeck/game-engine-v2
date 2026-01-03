@@ -20,9 +20,18 @@ void ImGuiLayer::OnAttatch() {
   ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
   ImGui_ImplOpenGL3_Init("#version 430");
 
+  float xscale = 1.0f, yscale = 1.0f;
+  glfwGetWindowContentScale(glfwWindow, &xscale, &yscale);
+  float scale = (xscale + yscale) * 0.5f;
+
+  ImGui::GetStyle().ScaleAllSizes(scale);
+
   ImGuiIO &io = ImGui::GetIO();
   io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
   io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+  io.Fonts->Clear();
+  io.Fonts->AddFontDefault(); // or AddFontFromFileTTF(...)
+  io.FontGlobalScale = scale;
 }
 
 void ImGuiLayer::OnUpdate() {

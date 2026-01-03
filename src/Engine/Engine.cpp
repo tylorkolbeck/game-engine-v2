@@ -7,7 +7,12 @@ Engine *Engine::s_Instance = nullptr;
 
 Engine::Engine() {
   s_Instance = this;
-  m_Window = std::unique_ptr<Window>(Window::Create());
+  WindowProps window_props;
+  window_props.Title = "test";
+  window_props.Width = 2560;
+  window_props.Height = 1440;
+
+  m_Window = std::unique_ptr<Window>(Window::Create(window_props));
   m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
   unsigned int id;
