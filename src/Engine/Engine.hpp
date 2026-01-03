@@ -13,7 +13,8 @@ public:
   void Run();
 
   void OnEvent(Event &e);
-
+  inline static Engine &Get() { return *s_Instance; }
+  inline Window &GetWindow() { return *m_Window; }
   void PushLayer(Layer *layer);
   void PushOverlay(Layer *layer);
 
@@ -24,4 +25,5 @@ private:
   bool m_Running = true;
   LayerStack m_LayerStack;
   Engine *CreateEngine();
+  static Engine *s_Instance;
 };

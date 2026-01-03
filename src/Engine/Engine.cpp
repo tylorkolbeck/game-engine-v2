@@ -1,17 +1,30 @@
 #include "Engine.hpp"
+#include <glad/glad.h>
 
 #define BIND_EVENT_FN(x) std::bind(&Engine::x, this, std::placeholders::_1)
 
+Engine *Engine::s_Instance = nullptr;
+
 Engine::Engine() {
+  s_Instance = this;
   m_Window = std::unique_ptr<Window>(Window::Create());
   m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+  unsigned int id;
+  glGenVertexArrays(1, &id);
 };
 
 Engine::~Engine() {}
 
-void Engine::PushLayer(Layer *layer) { m_LayerStack.PushLayer(layer); }
+void Engine::PushLayer(Layer *layer) {
+  m_LayerStack.PushLayer(layer);
+  layer->OnAttatch();
+}
 
-void Engine::PushOverlay(Layer *layer) { m_LayerStack.PushOverlay(layer); }
+void Engine::PushOverlay(Layer *layer) {
+  m_LayerStack.PushOverlay(layer);
+  layer->OnAttatch();
+}
 
 void Engine::OnEvent(Event &e) {
   EventDispatcher dispatcher(e);

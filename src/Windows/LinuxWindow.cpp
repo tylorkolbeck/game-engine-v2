@@ -4,6 +4,7 @@
 #include "Events/MouseEvent.hpp"
 #include "GLFW/glfw3.h"
 #include "Window.hpp"
+#include <glad/glad.h>
 #include <iostream>
 
 static bool s_GLFWInitialized = false;
@@ -44,6 +45,10 @@ void LinuxWindow::Init(const WindowProps &props) {
   m_Window = glfwCreateWindow((int)props.Width, (int)props.Height,
                               m_Data.Title.c_str(), nullptr, nullptr);
   glfwMakeContextCurrent(m_Window);
+  int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+  if (status != 1) {
+    std::cout << "ERROR: Failed to load GLAD\n";
+  }
   glfwSetWindowUserPointer(m_Window, &m_Data);
   SetVSync(true);
 

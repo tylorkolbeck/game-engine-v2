@@ -1,6 +1,7 @@
 #include "Engine/Engine.hpp"
+#include "Layers/ImGuiLayer.h"
 #include "Layers/Layer.hpp"
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 #include <iostream>
 
 class ExampleLayer : public Layer {
@@ -16,9 +17,11 @@ public:
 
 int main() {
   Layer *exampleLayer = new ExampleLayer();
+  Layer *imguiLayer = new ImGuiLayer();
 
   Engine *engine = new Engine();
   engine->PushLayer(exampleLayer);
+  engine->PushLayer(imguiLayer);
   engine->Run();
   return 0;
 }

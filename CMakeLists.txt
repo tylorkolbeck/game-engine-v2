@@ -6,6 +6,11 @@ project(
   LANGUAGES C CXX
 )
 
+add_library(glad STATIC
+  vendor/GLAD/src/glad.c)
+
+target_include_directories(glad PUBLIC vendor/GLAD/include)
+
 # GLFW options
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -22,17 +27,23 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-
-
 # Dependencies
-find_package(SDL3 CONFIG REQUIRED)
-
+ find_package(SDL3 CONFIG REQUIRED)
 
 file(GLOB_RECURSE TK_ENGINE_SOURCES CONFIGURE_DEPENDS
   src/*.cpp
 )
 
 add_executable(tk-engine ${TK_ENGINE_SOURCES})
+
+find_package(X11 REQUIRED)
+target_link_libraries(tk-engine PRIVATE
+  X11::X11
+  X11::Xi
+  X11::Xrandr
+  X11::Xinerama
+  X11::Xcursor
+)
 
 target_include_directories(tk-engine
   PRIVATE
@@ -42,10 +53,14 @@ target_include_directories(tk-engine
 target_link_libraries(tk-engine
   PRIVATE SDL3::SDL3
 )
-target_link_libraries(tk-engine PRIVATE glfw)
+
+add_subdirectory(vendor/imgui)
+target_link_libraries(tk-engine PRIVATE imgui)
+target_link_libraries(tk-engine PRIVATE glfw glad)
 
 target_compile_definitions(tk-engine
   PRIVATE SDL_MAIN_HANDLED
+  GLFW_INCLUDE_NONE
 )
 
 
