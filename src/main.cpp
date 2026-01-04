@@ -2,16 +2,15 @@
 #include "Layers/ImGuiLayer.h"
 #include "Layers/Layer.hpp"
 #include <glad/glad.h>
-#include <iostream>
 
 class ExampleLayer : public Layer {
 public:
   ExampleLayer() : Layer("Example") {}
 
-  void OnUpdate() override { std::cout << "Layer Update\n"; }
+  void OnUpdate() override {}
 
   void OnEvent(Event &event) override {
-    std::cout << "Event: " << event.ToString() << "\n";
+    // std::cout << "Event: " << event.ToString() << "\n";
   }
 };
 
