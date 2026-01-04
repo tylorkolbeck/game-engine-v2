@@ -44,9 +44,12 @@ void Engine::OnEvent(Event &e) {
 
 void Engine::Run() {
   while (m_Running) {
+    m_Window->OnUpdate();
+
+    glClearColor(0.5, 0.5, 0.5, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
     for (Layer *layer : m_LayerStack)
       layer->OnUpdate();
-    m_Window->OnUpdate();
   }
 }
 

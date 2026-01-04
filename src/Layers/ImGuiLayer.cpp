@@ -52,6 +52,7 @@ void ImGuiLayer::OnUpdate() {
   ImGui::ShowDemoWindow(&show);
 
   ImGui::Render();
+
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
