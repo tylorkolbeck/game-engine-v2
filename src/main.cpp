@@ -1,5 +1,5 @@
 #include "Engine/Engine.hpp"
-#include "Layers/ImGuiLayer.h"
+// #include "Layers/ImGuiLayer.h"
 #include "Layers/Layer.hpp"
 #include <glad/glad.h>
 
@@ -9,18 +9,16 @@ public:
 
   void OnUpdate() override {}
 
-  void OnEvent(Event &event) override {
-    // std::cout << "Event: " << event.ToString() << "\n";
-  }
+  void OnEvent(Event &event) override {}
 };
 
 int main() {
   Layer *exampleLayer = new ExampleLayer();
-  Layer *imguiLayer = new ImGuiLayer();
+  // Layer *imguiLayer = new ImGuiLayer();
 
   Engine *engine = new Engine();
   engine->PushLayer(exampleLayer);
-  engine->PushLayer(imguiLayer);
+  // engine->PushLayer(imguiLayer);
   engine->Run();
   return 0;
 }

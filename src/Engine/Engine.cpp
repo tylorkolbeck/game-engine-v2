@@ -1,4 +1,5 @@
 #include "Engine.hpp"
+#include "Events/KeyCodes.h"
 #include <glad/glad.h>
 
 #define BIND_EVENT_FN(x) std::bind(&Engine::x, this, std::placeholders::_1)
@@ -31,9 +32,17 @@ void Engine::PushOverlay(Layer *layer) {
   layer->OnAttatch();
 }
 
+bool Engine::OnKeyPressed(KeyPressedEvent &e) {
+  if (e.GetKeyCode() == Key::Escape) {
+    m_Running = false;
+  }
+  return false;
+}
+
 void Engine::OnEvent(Event &e) {
   EventDispatcher dispatcher(e);
   dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+  dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressed));
 
   for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
     (*--it)->OnEvent(e);
